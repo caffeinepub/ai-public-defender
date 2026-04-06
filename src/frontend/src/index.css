@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Navy + Gold luxury palette */
+    /* Deep navy: #081526 → oklch ~0.13 0.04 240 */
+    /* Card navy: #0B1F34 → oklch ~0.17 0.05 240 */
+    /* Gold: #C7A35A → oklch ~0.71 0.12 76 */
+    /* Near-white: #F2F6FF → oklch ~0.97 0.01 252 */
+    /* Cool gray-blue: #C7D2E0 → oklch ~0.84 0.03 230 */
+
+    --background: 0.13 0.04 240;
+    --foreground: 0.97 0.01 252;
+    --card: 0.17 0.05 240;
+    --card-foreground: 0.97 0.01 252;
+    --popover: 0.2 0.05 240;
+    --popover-foreground: 0.97 0.01 252;
+
+    /* Gold as primary */
+    --primary: 0.71 0.12 76;
+    --primary-foreground: 0.13 0.04 240;
+
+    /* Slightly lighter navy as secondary */
+    --secondary: 0.22 0.05 240;
+    --secondary-foreground: 0.97 0.01 252;
+
+    --muted: 0.2 0.04 240;
+    --muted-foreground: 0.65 0.03 230;
+
+    --accent: 0.71 0.12 76;
+    --accent-foreground: 0.13 0.04 240;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.28 0.05 240;
+    --input: 0.11 0.04 240;
+    --ring: 0.71 0.12 76;
+
+    /* Gold shades for charts */
+    --chart-1: 0.71 0.12 76;
+    --chart-2: 0.55 0.1 76;
+    --chart-3: 0.4 0.08 76;
+    --chart-4: 0.82 0.14 76;
+    --chart-5: 0.65 0.11 76;
+
+    /* Sidebar */
+    --sidebar: 0.11 0.04 240;
+    --sidebar-foreground: 0.97 0.01 252;
+    --sidebar-primary: 0.71 0.12 76;
+    --sidebar-primary-foreground: 0.13 0.04 240;
+    --sidebar-accent: 0.2 0.05 240;
+    --sidebar-accent-foreground: 0.97 0.01 252;
+    --sidebar-border: 0.22 0.05 240;
+    --sidebar-ring: 0.71 0.12 76;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+}
+
+/* Legal pattern background */
+.legal-bg {
+  background-color: oklch(var(--background));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23C7A35A' stroke-width='0.3' opacity='0.08'%3E%3C!-- Scales of Justice --%3E%3Ccircle cx='60' cy='18' r='3'/%3E%3Cline x1='60' y1='21' x2='60' y2='34'/%3E%3Cline x1='40' y1='34' x2='80' y2='34'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3Ccircle cx='80' cy='37' r='6'/%3E%3Cline x1='46' y1='40' x2='34' y2='40'/%3E%3Cline x1='86' y1='37' x2='74' y2='37'/%3E%3Cline x1='60' y1='34' x2='60' y2='50'/%3E%3C!-- Gavel --%3E%3Crect x='75' y='70' width='22' height='8' rx='2' transform='rotate(45 86 74)'/%3E%3Cline x1='68' y1='81' x2='55' y2='94' stroke-width='4'/%3E%3C!-- Document lines --%3E%3Crect x='10' y='65' width='30' height='40' rx='2'/%3E%3Cline x1='15' y1='75' x2='35' y2='75'/%3E%3Cline x1='15' y1='82' x2='35' y2='82'/%3E%3Cline x1='15' y1='89' x2='28' y2='89'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* Gold spinner */
+@keyframes gold-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.gold-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid oklch(0.3 0.06 240);
+  border-top-color: oklch(0.71 0.12 76);
+  border-radius: 50%;
+  animation: gold-spin 0.8s linear infinite;
+}
+
+/* Glassmorphism sidebar */
+.glass-sidebar {
+  background: oklch(0.11 0.04 240 / 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-left: 1px solid oklch(0.71 0.12 76 / 0.15);
+}
+
+/* Screen transitions */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen-enter {
+  animation: fade-in 0.35s ease-out forwards;
+}
+
+/* Chat bubble styles */
+.bubble-ai {
+  background: oklch(0.17 0.05 240);
+  border: 1px solid oklch(0.71 0.12 76 / 0.4);
+  border-radius: 0 0.75rem 0.75rem 0.75rem;
+}
+
+.bubble-user {
+  background: oklch(0.71 0.12 76);
+  color: oklch(0.13 0.04 240);
+  border-radius: 0.75rem 0 0.75rem 0.75rem;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.15 0.04 240);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.05 240);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.71 0.12 76 / 0.6);
+}
